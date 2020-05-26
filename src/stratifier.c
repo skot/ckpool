@@ -8796,7 +8796,8 @@ void *stratifier(void *arg)
 		create_pthread(&pth_statsupdate, statsupdate, ckp);
 
 	mutex_init(&sdata->share_lock);
-	create_pthread(&pth_zmqnotify, zmqnotify, ckp);
+	if (!ckp->proxy)
+		create_pthread(&pth_zmqnotify, zmqnotify, ckp);
 
 	ckp->stratifier_ready = true;
 	LOGWARNING("%s stratifier ready", ckp->name);
