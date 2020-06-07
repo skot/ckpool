@@ -1630,6 +1630,7 @@ int main(int argc, char **argv)
 	struct sigaction handler;
 	int c, ret, i = 0, j;
 	char buf[512] = {};
+	char *appname;
 	ckpool_t ckp;
 
 	/* Make significant floating point errors fatal to avoid subtle bugs being missed */
@@ -1645,6 +1646,10 @@ int main(int argc, char **argv)
 	for (ckp.args = 0; ckp.args < argc; ckp.args++)
 		ckp.initial_args[ckp.args] = strdup(argv[ckp.args]);
 	ckp.initial_args[ckp.args] = NULL;
+
+	appname = basename(argv[0]);
+	if (!strcmp(appname, "ckproxy"))
+		ckp.proxy = true;
 
 	while ((c = getopt_long(argc, argv, "Ac:Dd:g:HhkLl:Nn:PpqRS:s:tu", long_options, &i)) != -1) {
 		switch (c) {

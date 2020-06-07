@@ -40,3 +40,9 @@ ckdb_SOURCES = ckdb.c ckdb_cmd.c ckdb_data.c ckdb_dbio.c ckdb_btc.c \
 		ckdb_crypt.c ckdb.h klist.c ktree.c klist.h ktree.h
 ckdb_LDADD = libckpool.a @JANSSON_LIBS@ @LIBS@
 endif
+
+install-exec-hook:
+	$(LN_S) -f ckpool $(DESTDIR)$(bindir)/ckproxy
+
+uninstall-local:
+	rm -f $(bindir)/ckproxy
